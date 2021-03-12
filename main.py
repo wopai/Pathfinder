@@ -41,7 +41,7 @@ def create_wall(wall):
 
 def create_map():
     WIN.fill(WHITE)
-    WIN.blit(BACKGROUND, (0, 0))
+    WIN.blit(BACKGROUND, (0, 0)),
     for i in range(random.randint(0, 16)):
         rand_pos_x = random.randrange(0, BACKGROUND_WIDTH, WALL_WIDTH)
         rand_pos_y = random.randrange(0, BACKGROUND_HEIGHT, WALL_HEIGHT)
