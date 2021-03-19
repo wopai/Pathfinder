@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 import os
 import random
-
+import math
 
 WIDTH, HEIGHT = 360, 360
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -62,10 +62,22 @@ def draw_window(red, blue):
     pygame.display.update()
 
 
+def game_over():
+    print("game over...")
+    quit()
+
+def check_distance(red,blue):
+    '''returns left,right,realdist'''
+    LEFT,TOP= red.left - blue.left ,red.top - blue.top
+    realdist = math.sqrt(abs(LEFT)**2 + abs(TOP)**2)
+    if realdist <= math.sqrt(red.width**2 + red.height**2):
+        game_over()
+    return LEFT,TOP,realdist
+
 def main():
     create_map()
     red = pygame.Rect(100, 100, CHARACTER_WIDTH, CHARACTER_HEIGHT)
-    blue = pygame.Rect(200, 100, CHARACTER_WIDTH, CHARACTER_HEIGHT)
+    blue = pygame.Rect(116, 117, CHARACTER_WIDTH, CHARACTER_HEIGHT)
 
     clock = pygame.time.Clock()
     run = True
@@ -75,6 +87,7 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
         draw_window(red, blue)
+        check_distance(red,blue)
     pygame.quit()
 
 
