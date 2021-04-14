@@ -50,11 +50,6 @@ def create_map():
         while character_colliding:
             rand_pos_x = random.randrange(0, BACKGROUND_WIDTH, WALL_WIDTH)
             rand_pos_y = random.randrange(0, BACKGROUND_HEIGHT, WALL_HEIGHT)
-            # print((rand_pos_x == BLUE_CHARACTER_SPAWN_COORDINATES[0] -
-            #        BLUE_CHARACTER_SPAWN_COORDINATES[0] % WALL_WIDTH)
-            #       or (rand_pos_x == (BLUE_CHARACTER_SPAWN_COORDINATES[0] + CHARACTER_WIDTH) -
-            #           BLUE_CHARACTER_SPAWN_COORDINATES[
-            #               0] + CHARACTER_WIDTH % WALL_WIDTH))
             character_colliding = (((rand_pos_x == BLUE_CHARACTER_SPAWN_COORDINATES[0] -
                                      BLUE_CHARACTER_SPAWN_COORDINATES[0] % WALL_WIDTH)
                                     or (rand_pos_x == (BLUE_CHARACTER_SPAWN_COORDINATES[0] + CHARACTER_WIDTH) -
