@@ -34,6 +34,9 @@ WALL = pygame.transform.scale(WALL_IMAGE, (WALL_WIDTH, WALL_HEIGHT))
 
 walls = []
 
+BLUE_CHARACTER_SPAWN_COORDINATES = (100, 100)
+RED_CHARACTER_SPAWN_COORDINATES = (200, 200)
+
 
 def create_wall(wall):
     WIN.blit(WALL, (wall.x, wall.y))
@@ -46,7 +49,27 @@ def create_map():
         rand_pos_x = random.randrange(0, BACKGROUND_WIDTH, WALL_WIDTH)
         rand_pos_y = random.randrange(0, BACKGROUND_HEIGHT, WALL_HEIGHT)
         for wall in walls:
-            while rand_pos_x == wall.x and rand_pos_y == wall.y and i != 16:
+            character_colliding = ((rand_pos_x == BLUE_CHARACTER_SPAWN_COORDINATES[0] -
+                                    BLUE_CHARACTER_SPAWN_COORDINATES[0] % 36
+                                    or rand_pos_x == (BLUE_CHARACTER_SPAWN_COORDINATES[0] + 16) -
+                                    BLUE_CHARACTER_SPAWN_COORDINATES[
+                                        0] % 36)
+                                   and (rand_pos_y == BLUE_CHARACTER_SPAWN_COORDINATES[1] -
+                                        BLUE_CHARACTER_SPAWN_COORDINATES[1] % 36
+                                        or rand_pos_y == (BLUE_CHARACTER_SPAWN_COORDINATES[1] + 16) -
+                                        BLUE_CHARACTER_SPAWN_COORDINATES[
+                                            1] % 36)) or ((rand_pos_x == RED_CHARACTER_SPAWN_COORDINATES[0] -
+                                                           RED_CHARACTER_SPAWN_COORDINATES[0] % 36
+                                                           or rand_pos_x == (RED_CHARACTER_SPAWN_COORDINATES[0] + 16) -
+                                                           RED_CHARACTER_SPAWN_COORDINATES[
+                                                               0] % 36) and (
+                                                                  rand_pos_y == RED_CHARACTER_SPAWN_COORDINATES[1] -
+                                                                  RED_CHARACTER_SPAWN_COORDINATES[1] % 36
+                                                                  or rand_pos_y == (
+                                                                          RED_CHARACTER_SPAWN_COORDINATES[1] + 16) -
+                                                                  RED_CHARACTER_SPAWN_COORDINATES[
+                                                                      1] % 36))
+            while rand_pos_x == wall.x and rand_pos_y == wall.y and not character_colliding:
                 rand_pos_x = random.randrange(0, BACKGROUND_WIDTH, WALL_WIDTH)
                 rand_pos_y = random.randrange(0, BACKGROUND_HEIGHT, WALL_HEIGHT)
         wall = pygame.Rect(rand_pos_x, rand_pos_y, WALL_WIDTH, WALL_HEIGHT)
@@ -66,19 +89,22 @@ def game_over():
     print("game over...")
     quit()
 
-def check_distance(red,blue):
-    '''returns left,right,realdist'''
-    LEFT,TOP= red.left - blue.left ,red.top - blue.top
-    realdist = math.sqrt(abs(LEFT)**2 + abs(TOP)**2)
-    if realdist <= math.sqrt(red.width**2 + red.height**2):
+
+def check_distance(red, blue):
+    """returns left,top,realdist"""
+    LEFT, TOP = red.left - blue.left, red.top - blue.top
+    realdist = math.sqrt(abs(LEFT) ** 2 + abs(TOP) ** 2)
+    if realdist <= math.sqrt(red.width ** 2 + red.height ** 2):
         game_over()
-    return LEFT,TOP,realdist
+    return LEFT, TOP, realdist
+
 
 def main():
     create_map()
-    red = pygame.Rect(100, 100, CHARACTER_WIDTH, CHARACTER_HEIGHT)
-    blue = pygame.Rect(116, 117, CHARACTER_WIDTH, CHARACTER_HEIGHT)
-
+    red = pygame.Rect(BLUE_CHARACTER_SPAWN_COORDINATES[0], BLUE_CHARACTER_SPAWN_COORDINATES[1],
+                      CHARACTER_WIDTH, CHARACTER_HEIGHT)
+    blue = pygame.Rect(RED_CHARACTER_SPAWN_COORDINATES[0], RED_CHARACTER_SPAWN_COORDINATES[1],
+                       CHARACTER_WIDTH, CHARACTER_HEIGHT)
     clock = pygame.time.Clock()
     run = True
     while run:
@@ -87,7 +113,7 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
         draw_window(red, blue)
-        check_distance(red,blue)
+        check_distance(red, blue)
     pygame.quit()
 
 
