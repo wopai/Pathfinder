@@ -42,6 +42,7 @@ def create_wall(wall):
     WIN.blit(WALL, (wall.x, wall.y))
 
 
+
 def create_map():
     WIN.fill(WHITE)
     WIN.blit(BACKGROUND, (0, 0)),
