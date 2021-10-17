@@ -20,11 +20,13 @@ BACKGROUND_IMAGE = pygame.image.load(os.path.join("Assets", "background.png"))
 BACKGROUND = pygame.transform.scale(
     BACKGROUND_IMAGE, (BACKGROUND_WIDTH, BACKGROUND_HEIGHT)
 )
-RED_CHARACTER_IMAGE = pygame.image.load(os.path.join("Assets", "red_character.png"))
+RED_CHARACTER_IMAGE = pygame.image.load(
+    os.path.join("Assets", "red_character.png"))
 RED_CHARACTER = pygame.transform.scale(
     RED_CHARACTER_IMAGE, (CHARACTER_WIDTH, CHARACTER_HEIGHT)
 )
-BLUE_CHARACTER_IMAGE = pygame.image.load(os.path.join("Assets", "blue_character.png"))
+BLUE_CHARACTER_IMAGE = pygame.image.load(
+    os.path.join("Assets", "blue_character.png"))
 BLUE_CHARACTER = pygame.transform.scale(
     BLUE_CHARACTER_IMAGE, (CHARACTER_WIDTH, CHARACTER_HEIGHT)
 )
@@ -42,7 +44,6 @@ def create_wall(wall):
     WIN.blit(WALL, (wall.x, wall.y))
 
 
-
 def create_map():
     WIN.fill(WHITE)
     WIN.blit(BACKGROUND, (0, 0)),
@@ -51,35 +52,39 @@ def create_map():
         while character_colliding:
             rand_pos_x = random.randrange(0, BACKGROUND_WIDTH, WALL_WIDTH)
             rand_pos_y = random.randrange(0, BACKGROUND_HEIGHT, WALL_HEIGHT)
-            character_colliding = (((rand_pos_x == BLUE_CHARACTER_SPAWN_COORDINATES[0] -
-                                     BLUE_CHARACTER_SPAWN_COORDINATES[0] % WALL_WIDTH)
-                                    or (rand_pos_x == (BLUE_CHARACTER_SPAWN_COORDINATES[0] + CHARACTER_WIDTH) -
-                                        ((BLUE_CHARACTER_SPAWN_COORDINATES[
-                                              0] + CHARACTER_WIDTH) % WALL_WIDTH)))
-                                   and ((rand_pos_y == BLUE_CHARACTER_SPAWN_COORDINATES[1] -
-                                         BLUE_CHARACTER_SPAWN_COORDINATES[1] % WALL_HEIGHT)
-                                        or (rand_pos_y == (BLUE_CHARACTER_SPAWN_COORDINATES[1] + CHARACTER_HEIGHT) -
-                                            ((BLUE_CHARACTER_SPAWN_COORDINATES[
-                                                  1] + CHARACTER_HEIGHT) % WALL_HEIGHT)))) or (
-                                          ((rand_pos_x == RED_CHARACTER_SPAWN_COORDINATES[0] -
-                                            RED_CHARACTER_SPAWN_COORDINATES[0] % WALL_WIDTH)
-                                           or (rand_pos_x == (RED_CHARACTER_SPAWN_COORDINATES[
-                                                                  0] + CHARACTER_WIDTH) -
-                                               ((RED_CHARACTER_SPAWN_COORDINATES[
-                                                     0] + CHARACTER_WIDTH) % WALL_WIDTH))) and (
-                                                  (rand_pos_y ==
-                                                   RED_CHARACTER_SPAWN_COORDINATES[1] -
-                                                   RED_CHARACTER_SPAWN_COORDINATES[
-                                                       1] % WALL_HEIGHT)
-                                                  or (rand_pos_y ==
-                                                      (RED_CHARACTER_SPAWN_COORDINATES[
-                                                           1] + CHARACTER_HEIGHT) -
-                                                      ((RED_CHARACTER_SPAWN_COORDINATES[
-                                                            1] + CHARACTER_HEIGHT) % WALL_HEIGHT))))
+            blue_spawn_coordinate = BLUE_CHARACTER_SPAWN_COORDINATES[0]
+            red_spawn_coordinate = RED_CHARACTER_SPAWN_COORDINATES[0]
+            character_colliding = (((rand_pos_x == blue_spawn_coordinate -
+                                     blue_spawn_coordinate % WALL_WIDTH)
+                                    or (rand_pos_x == (blue_spawn_coordinate + CHARACTER_WIDTH) -
+                                        ((blue_spawn_coordinate
+                                          + CHARACTER_WIDTH) % WALL_WIDTH)))
+                                   and ((rand_pos_y == blue_spawn_coordinate -
+                                         blue_spawn_coordinate % WALL_HEIGHT)
+                                        or (rand_pos_y == (blue_spawn_coordinate + CHARACTER_HEIGHT) -
+                                            ((blue_spawn_coordinate
+                                              + CHARACTER_HEIGHT) % WALL_HEIGHT)))) or (
+                ((rand_pos_x == red_spawn_coordinate -
+                  red_spawn_coordinate % WALL_WIDTH)
+                 or (rand_pos_x == (red_spawn_coordinate
+                                    + CHARACTER_WIDTH) -
+                     (red_spawn_coordinate
+                      + CHARACTER_WIDTH) % WALL_WIDTH))) and (
+                (rand_pos_y ==
+                 red_spawn_coordinate -
+                 red_spawn_coordinate
+                 % WALL_HEIGHT)
+                or (rand_pos_y ==
+                    (red_spawn_coordinate
+                     + CHARACTER_HEIGHT) -
+                    ((red_spawn_coordinate
+                      + CHARACTER_HEIGHT) % WALL_HEIGHT)))
             for wall in walls:
                 while rand_pos_x == wall.x and rand_pos_y == wall.y:
-                    rand_pos_x = random.randrange(0, BACKGROUND_WIDTH, WALL_WIDTH)
-                    rand_pos_y = random.randrange(0, BACKGROUND_HEIGHT, WALL_HEIGHT)
+                    rand_pos_x = random.randrange(
+                        0, BACKGROUND_WIDTH, WALL_WIDTH)
+                    rand_pos_y = random.randrange(
+                        0, BACKGROUND_HEIGHT, WALL_HEIGHT)
         wall = pygame.Rect(rand_pos_x, rand_pos_y, WALL_WIDTH, WALL_HEIGHT)
         create_wall(wall)
         walls.append(wall)
