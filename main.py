@@ -6,8 +6,9 @@ import math
 
 WIDTH, HEIGHT = 360, 360
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Pathfinder")
-
+pygame.display.set_caption("Pathfinder Beta")
+pygame.display.set_icon(pygame.image.load(
+    os.path.join("Assets", "icon.png")))
 WHITE = (255, 255, 255)
 
 FPS = 60
